@@ -18,3 +18,8 @@ mkdir -p ~/.zsh/completion/
 eksctl completion zsh > ~/.zsh/completion/_eksctl
 
 echo 'fpath=($fpath ~/.zsh/completion)' >> ~/.zshrc
+
+cat <<EOF >> ~/.zshsrc
+autoload -U compinit
+compinit
+EOF
