@@ -39,8 +39,6 @@ cat <<EOF > .vscode/settings.json
     },
     "Command Prompt": {
       "path": [
-        "\${env:windir}\\Sysnative\\cmd.exe",
-        "\${env:windir}\\System32\\cmd.exe"
       ],
       "args": [],
       "icon": "terminal-cmd"
