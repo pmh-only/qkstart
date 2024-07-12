@@ -1,4 +1,4 @@
-check_exec sed util-linux-user
+check_exec sed util-linux-user git
 
 sudo yum install -y zsh
 RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
