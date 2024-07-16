@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Make artifact
-        run: zip qkstart.zip * -x ".git/*" ".github/*"
+        run: zip /home/runner/work/qkstart/qkstart/qkstart.zip * -r -x ".git/*" ".github/*"
       - id: version
         name: Calculate rolling update version
         run: echo "version=$(TZ=Asia/Seoul date +rolling-%y%m%d%H%M%S)" >> "$GITHUB_OUTPUT"
