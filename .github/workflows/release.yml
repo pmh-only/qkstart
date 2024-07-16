@@ -20,5 +20,5 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_EC2_METADATA_DISABLED: true
         run: |
-          aws s3 --endpoint-url https://s3.pmh.codes cp ./qkstart.zip s3://qkstart/releases/${{ steps.version.outputs.version }}.zip
-          aws s3 --endpoint-url https://s3.pmh.codes cp ./qkstart.zip s3://qkstart/releases/latest.zip
+          aws s3 --endpoint-url https://s3.pmh.codes cp ./qkstart.zip s3://qkstart/pack.zip
+          aws s3 --endpoint-url https://s3.pmh.codes cp ./install.sh s3://qkstart/install.sh

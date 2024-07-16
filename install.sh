@@ -1,7 +1,9 @@
 #!/bin/sh
 
-SCRIPT=$(readlink -f "$0")
-SCRIPTPATH=$(dirname "$SCRIPT")
+mkdir /opt/qkstart
+wget https://qkstart.pmh.codes/pack.zip -O /opt/qkstart/pack.zip
+unzip /opt/qkstart/pack.zip -d /opt/qkstart/
 
-sudo ln -sf $SCRIPTPATH/qkstart.sh /bin/q
-sudo chmod 755 /usr/bin/q
+ln -sf /opt/qkstart/qkstart.sh /bin/q
+chmod 755 /usr/bin/q
+chmod 777 -R /opt/qkstart/
