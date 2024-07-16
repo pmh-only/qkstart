@@ -206,7 +206,8 @@ cat <<EOF > .vscode/settings.json
   "vim.handleKeys": {
     "<C-c>": false,
     "<C-v>": false,
-    "<C-d>": false
+    "<C-d>": false,
+    "<C-x>": false
   },
 
   "extensions.experimental.affinity": {

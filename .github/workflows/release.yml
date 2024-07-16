@@ -1,0 +1,32 @@
+name: Rolling Release qkstart
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make artifact
+        run: zip qkstart.zip * -x ".git/*" ".github/*"
+      - id: version
+        name: Calculate rolling update version
+        run: echo "version=$(TZ=Asia/Seoul date +rolling-%y%m%d%H%M%S)" >> "$GITHUB_OUTPUT"
+      - uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_bucket: qkstart
+          endpoint: s3.pmh.codes
+          source_dir: qkstart.zip
+          destination_dir: ${{ steps.version.outputs.version }}.zip
+      - uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_bucket: qkstart
+          endpoint: s3.pmh.codes
+          source_dir: qkstart.zip
+          destination_dir: latest.zip

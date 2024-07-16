@@ -18,7 +18,7 @@ get_arch() {
   arch=""
   case $(uname -m) in
     x86_64) arch="amd64" ;;
-    arm) arch="arm64" ;;
+    aarch64) arch="arm64" ;;
   esac
 
   echo $arch
