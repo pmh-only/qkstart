@@ -10,23 +10,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Make artifact
-        run: zip /home/runner/work/qkstart/qkstart/qkstart.zip * -r -x ".git/*" ".github/*"
+        run: zip qkstart.zip * -r -x ".git/*" ".github/*"
       - id: version
         name: Calculate rolling update version
         run: echo "version=$(TZ=Asia/Seoul date +rolling-%y%m%d%H%M%S)" >> "$GITHUB_OUTPUT"
-      - uses: shallwefootball/s3-upload-action@master
-        with:
-          aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_bucket: qkstart
-          endpoint: s3.pmh.codes
-          source_dir: qkstart.zip
-          destination_dir: ${{ steps.version.outputs.version }}.zip
-      - uses: shallwefootball/s3-upload-action@master
-        with:
-          aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_bucket: qkstart
-          endpoint: s3.pmh.codes
-          source_dir: qkstart.zip
-          destination_dir: latest.zip
+      - name: Upload to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_EC2_METADATA_DISABLED: true
+        run: |
+          aws s3 --endpoint-url https://s3.pmh.codes cp ./qkstart.zip s3://qkstart/releases/${{ steps.version.outputs.version }}.zip
+          aws s3 --endpoint-url https://s3.pmh.codes cp ./qkstart.zip s3://qkstart/releases/latest.zip
