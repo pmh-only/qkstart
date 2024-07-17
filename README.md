@@ -1,7 +1,7 @@
 # :rocket: qkstart
 quick install essential packages and generate templated manifest file for kubernetes
 
-> [!INFO]
+> [!CAUTION]
 > this repository is under construction!!
 > use with caution
 
