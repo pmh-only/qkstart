@@ -12,7 +12,7 @@ tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 
 sudo mv /tmp/eksctl /usr/local/bin
 
-echo ". <(eksctl completion bash)" > ~/.bashrc
+echo ". <(eksctl completion bash)" >> ~/.bashrc
 
 mkdir -p ~/.zsh/completion/
 eksctl completion zsh > ~/.zsh/completion/_eksctl
