@@ -1,3 +1,24 @@
+# Checklist #
+
+# sharednode sg - inbound
+# - https from bastion
+# - all from self
+# - all from cluster sg (not shared)
+
+# cluster sg (not shared) - inbound
+# - https from bastion
+# - all from self
+# - all from sharednode sg
+
+# cluster sg (not shared) - outbound
+# - tcp 53 to self
+# - udp 53 to self
+# - tcp 10250 to self
+# - https to self
+# - https to sharednode sg
+# - https to s3 prefix
+
+---
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
@@ -10,7 +31,7 @@ metadata:
 
 vpc:
   clusterEndpoints:
-    privateAccess: true 
+    privateAccess: true
     publicAccess: false
   subnets:
     private:
@@ -29,6 +50,13 @@ iam:
         namespace: kube-system
       wellKnownPolicies:
         awsLoadBalancerController: true
+
+# privateCluster:
+#   enabled: true
+#   additionalEndpointServices:
+#     - cloudformation
+#     - autoscaling
+#     - logs
 
 managedNodeGroups:
   - name: project-mng-app
